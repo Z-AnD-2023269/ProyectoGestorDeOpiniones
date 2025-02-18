@@ -32,6 +32,8 @@ export const login = async (req, res) => {
             $or:[{email: email}, {username: username}]
         })
 
+        console.log(req.body)
+
         if(!user){
             return res.status(400).json({
                 message: "Crendenciales inválidas",

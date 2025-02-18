@@ -34,16 +34,16 @@ const middlewares = (app) => {
     }));
     app.use(morgan("dev"));
     app.use(apiLimiter);
-};
+}
 
 const routes = (app) => {
     app.use("/gestionDeOpiniones/v1/auth", authRoutes);
     app.use("/gestionDeOpiniones/v1/user", userRoutes);
-    app.use("/gestionDeOpiniones/v1/category", categoryRoutes);
+    /*app.use("/gestionDeOpiniones/v1/category", categoryRoutes);
     app.use("/gestionDeOpiniones/v1/post", postRoutes);
-    app.use("/gestionDeOpiniones/v1/comment", commentRoutes);
+    app.use("/gestionDeOpiniones/v1/comment", commentRoutes);*/
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-};
+}
 
 const conectarDB = async () => {
     try {
@@ -52,7 +52,7 @@ const conectarDB = async () => {
         console.log(`Database connection failed: ${err}`);
         process.exit(1);
     }
-};
+}
 
 export const initServer = () => {
     const app = express();
@@ -65,4 +65,4 @@ export const initServer = () => {
     } catch (err) {
         console.log(`Server init failed: ${err}`);
     }
-};
+}

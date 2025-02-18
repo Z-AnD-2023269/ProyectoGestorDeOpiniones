@@ -9,7 +9,7 @@ import { validateJWT } from "./validate-jwt.js";
 import { hasRoles } from "./validate-roles.js";
 
 export const registerValidator = [
-    body("nombre").notEmpty().withMessage("El nombre es requerido"),
+    body("name").notEmpty().withMessage("El nombre es requerido"),
     body("username").notEmpty().withMessage("El username es requerido"),
     body("email").notEmpty().withMessage("El email es requerido"),
     body("email").isEmail().withMessage("No es un email válido"),
@@ -28,11 +28,11 @@ export const registerValidator = [
 ]
 
 export const loginValidator = [
-    body("email").optional().isEmail().withMessage("No es un email válido"),
+    /*body("email").optional().isEmail().withMessage("No es un email válido"),
     body("username").optional().isString().withMessage("Username en formato erróneo"),
     body("password").isLength({ min: 8 }).withMessage("El password debe contener al menos 8 caracteres"),
     validarCampos,
-    handleErrors
+    handleErrors*/
 ]
 
 export const getUserByIdValidator = [

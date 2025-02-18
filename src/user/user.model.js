@@ -1,57 +1,59 @@
-import { Schema, model } from "mongoose";
+import { Schema, model} from "mongoose";
 
-const usuarioSchema = new Schema({
-    nombre: {
+const userSchema = Schema({
+    name:{
         type: String,
-        required: [true, "El nombre es obligatorio"],
-        maxLength: [25, "El nombre no puede exceder 25 caracteres"]
+        required: [true, "Name is required"],
+        maxLength: [25, "Name cannot exceed 25 characters"]
     },
-    apellido: {
+    surname:{
         type: String,
-        required: [true, "El apellido es obligatorio"],
-        maxLength: [25, "El apellido no puede exceder 25 caracteres"]
+        required: [true, "Surname is required"],
+        maxLength: [25, "Surname cannot exceed 25 characters"]
     },
-    username: {
+    username:{
         type: String,
         required: true,
+        unique:true
+    },
+    email:{
+        type: String,
+        required: [true, "Email is required"],
         unique: true
     },
-    email: {
+    password:{
         type: String,
-        required: [true, "El correo es obligatorio"],
-        unique: true
+        required: [true, "Password is required"]
     },
-    password: {
-        type: String,
-        required: [true, "La contraseña es obligatoria"]
-    },
-    fotoPerfil: {
+    profilePicture:{
         type: String
     },
-    telefono: {
+    phone:{
         type: String,
         minLength: 8,
         maxLength: 8,
         required: true
     },
-    rol: {
+    role:{
         type: String,
         required: true,
-        enum: ["ADMIN_ROLE", "USER_ROLE"]
+        enum: ["ADMIN_ROLE", "USER_ROLE"],
+        default: "USER_ROLE"
     },
-    estado: {
+    status:{
         type: Boolean,
         default: true
     }
-}, {
+},
+{
     versionKey: false,
-    timestamps: true
+    timeStamps: true
 })
 
-usuarioSchema.methods.toJSON = function() {
-    const { password, _id, ...usuario } = this.toObject();
-    usuario.uid = _id;
-    return usuario;
+userSchema.methods.toJSON = function(){
+    const {password, _id, ...usuario} = this.toObject()
+    usuario.uid = _id
+    return usuario
 }
 
-export default model("Usuario", usuarioSchema);
+export default model("User", userSchema)
