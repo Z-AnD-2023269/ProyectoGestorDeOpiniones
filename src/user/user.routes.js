@@ -7,7 +7,7 @@ const router = Router()
 
 /**
  * @swagger
- * /findUser/{uid}:
+ * /findUser/:
  *   get:
  *     summary: Obtiene un usuario por ID
  *     tags: [User]
@@ -23,7 +23,7 @@ const router = Router()
  *       404:
  *         description: Usuario no encontrado
  */
-router.get("/findUser/:uid", getUserByIdValidator, getUserById)
+router.get("/findUser/", getUserByIdValidator, getUserById)
 
 /**
  * @swagger
@@ -39,7 +39,7 @@ router.get("/", getUsers)
 
 /**
  * @swagger
- * /updatePassword/{uid}:
+ * /updatePassword/:
  *   patch:
  *     summary: Actualiza la contraseña de un usuario
  *     tags: [User]
@@ -77,11 +77,11 @@ router.get("/", getUsers)
  *       404:
  *         description: Usuario no encontrado
  */
-router.patch("/updatePassword/:uid", updatePasswordValidator, updatePassword);
+router.patch("/updatePassword/", updatePasswordValidator, updatePassword);
 
 /**
  * @swagger
- * /updateUser/{uid}:
+ * /updateUser/:
  *   put:
  *     summary: Actualiza un usuario por ID
  *     tags: [User]
@@ -108,11 +108,11 @@ router.patch("/updatePassword/:uid", updatePasswordValidator, updatePassword);
  *       400:
  *         description: Error en la solicitud
  */
-router.put("/updateUser/:uid", updateUserValidator, updateUser)
+router.put("/updateUser/", updateUserValidator, updateUser)
 
 /**
  * @swagger
- * /updateProfilePicture/{uid}:
+ * /updateProfilePicture/:
  *   patch:
  *     summary: Actualiza la foto de perfil de un usuario
  *     tags: [User]
@@ -138,6 +138,6 @@ router.put("/updateUser/:uid", updateUserValidator, updateUser)
  *       400:
  *         description: Error en la solicitud
  */
-router.patch("/updateProfilePicture/:uid", uploadProfilePicture.single("profilePicture"), updateProfilePictureValidator, updateProfilePicture)
+router.patch("/updateProfilePicture/", uploadProfilePicture.single("profilePicture"), updateProfilePictureValidator, updateProfilePicture)
 
 export default router
