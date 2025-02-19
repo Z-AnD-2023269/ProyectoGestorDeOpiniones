@@ -1,6 +1,6 @@
 import { Router } from "express"
-import { getUserById, getUsers, deleteUser, updatePassword, updateUser, updateProfilePicture } from "./user.controller.js"
-import { getUserByIdValidator, deleteUserValidator, updatePasswordValidator, updateUserValidator, updateProfilePictureValidator } from "../middlewares/user-validators.js"
+import { getUserById, getUsers, updatePassword, updateUser, updateProfilePicture } from "./user.controller.js"
+import { getUserByIdValidator, updatePasswordValidator, updateUserValidator, updateProfilePictureValidator } from "../middlewares/user-validators.js"
 import { uploadProfilePicture } from "../middlewares/multer-uploads.js"
 
 const router = Router()
@@ -39,36 +39,19 @@ router.get("/", getUsers)
 
 /**
  * @swagger
- * /deleteUser/{uid}:
- *   delete:
- *     summary: Elimina un usuario por ID
- *     tags: [User]
- *     parameters:
- *       - in: path
- *         name: uid
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Usuario eliminado
- *       404:
- *         description: Usuario no encontrado
- */
-router.delete("/deleteUser/:uid", deleteUserValidator, deleteUser)
-
-/**
- * @swagger
  * /updatePassword/{uid}:
  *   patch:
  *     summary: Actualiza la contraseña de un usuario
  *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: uid
  *         required: true
  *         schema:
  *           type: string
+ *         description: ID del usuario cuya contraseña se actualizará
  *     requestBody:
  *       required: true
  *       content:
@@ -76,15 +59,25 @@ router.delete("/deleteUser/:uid", deleteUserValidator, deleteUser)
  *           schema:
  *             type: object
  *             properties:
- *               password:
+ *               oldPassword:
  *                 type: string
+ *                 description: Contraseña actual del usuario
+ *               newPassword:
+ *                 type: string
+ *                 description: Nueva contraseña del usuario
  *     responses:
  *       200:
- *         description: Contraseña actualizada
+ *         description: Contraseña actualizada correctamente
  *       400:
- *         description: Error en la solicitud
+ *         description: Error en la solicitud (ej. contraseña incorrecta o nueva igual a la anterior)
+ *       401:
+ *         description: No autorizado (falta token JWT)
+ *       403:
+ *         description: No tienes permisos para cambiar esta contraseña
+ *       404:
+ *         description: Usuario no encontrado
  */
-router.patch("/updatePassword/:uid", updatePasswordValidator, updatePassword)
+router.patch("/updatePassword/:uid", updatePasswordValidator, updatePassword);
 
 /**
  * @swagger

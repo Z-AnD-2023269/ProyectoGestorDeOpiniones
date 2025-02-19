@@ -28,11 +28,11 @@ export const registerValidator = [
 ]
 
 export const loginValidator = [
-    /*body("email").optional().isEmail().withMessage("No es un email válido"),
+    body("email").optional().isEmail().withMessage("No es un email válido"),
     body("username").optional().isString().withMessage("Username en formato erróneo"),
     body("password").isLength({ min: 8 }).withMessage("El password debe contener al menos 8 caracteres"),
     validarCampos,
-    handleErrors*/
+    handleErrors
 ]
 
 export const getUserByIdValidator = [
@@ -44,29 +44,26 @@ export const getUserByIdValidator = [
     handleErrors
 ]
 
-export const deleteUserValidator = [
-    param("uid").isMongoId().withMessage("No es un ID válido de MongoDB"),
-    param("uid").custom(userExists),
-    validarCampos,
-    handleErrors
-]
-
 export const updatePasswordValidator = [
+    validateJWT,
     param("uid").isMongoId().withMessage("No es un ID válido de MongoDB"),
     param("uid").custom(userExists),
+    body("oldPassword").notEmpty().withMessage("Debe ingresar la contraseña actual"),
     body("newPassword").isLength({ min: 8 }).withMessage("El password debe contener al menos 8 caracteres"),
     validarCampos,
     handleErrors
 ]
 
 export const updateUserValidator = [
-    param("id").isMongoId().withMessage("No es un ID válido"),
-    param("id").custom(userExists),
+    validateJWT,
+    param("uid").isMongoId().withMessage("No es un ID válido"),
+    param("uid").custom(userExists),
     validarCampos,
     handleErrors
 ]
 
 export const updateProfilePictureValidator = [
+    validateJWT,
     param("uid").isMongoId().withMessage("No es un ID válido de MongoDB"),
     param("uid").custom(userExists),
     validarCampos,
