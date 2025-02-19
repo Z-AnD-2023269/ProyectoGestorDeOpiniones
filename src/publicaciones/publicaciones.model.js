@@ -2,31 +2,31 @@
 
 import { Schema, model } from "mongoose";
 
-const publicacionSchema = new Schema({
-    titulo: {
+const publicationSchema = new Schema({
+    title: {
         type: String,
-        required: [true, "El título es obligatorio"],
-        maxLength: [100, "El título no puede exceder 100 caracteres"]
+        required: [true, "The title is required"],
+        maxLength: [100, "The title cannot exceed 100 characters"]
     },
-    categoria: {
+    category: {
         type: Schema.Types.ObjectId,
-        ref: "Categoria",
-        required: [true, "La categoría es obligatoria"]
+        ref: "Category",
+        required: [true, "The category is required"]
     },
-    contenido: {
+    content: {
         type: String,
-        required: [true, "El contenido de la publicación es obligatorio"]
+        required: [true, "The content is required"]
     },
-    usuario: {
+    user: {
         type: Schema.Types.ObjectId,
-        ref: "Usuario",
-        required: [true, "El usuario es obligatorio"]
+        ref: "User",
+        required: [true, "The user is required"]
     },
-    fechaCreacion: {
+    createdAt: {
         type: Date,
         default: Date.now
     },
-    estado: {
+    status: {
         type: Boolean,
         default: true
     }
@@ -35,10 +35,10 @@ const publicacionSchema = new Schema({
     timestamps: true
 });
 
-publicacionSchema.methods.toJSON = function() {
-    const { _id, ...publicacion } = this.toObject();
-    publicacion.uid = _id;
-    return publicacion;
+publicationSchema.methods.toJSON = function() {
+    const { _id, ...publication } = this.toObject();
+    publication.uid = _id;
+    return publication;
 };
 
-export default model("Publicacion", publicacionSchema);
+export default model("Publication", publicationSchema);
