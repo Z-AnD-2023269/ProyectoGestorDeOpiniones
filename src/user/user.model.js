@@ -1,44 +1,55 @@
-"use strict";
-
 import { Schema, model } from "mongoose";
 
-const publicacionSchema = new Schema({
-    titulo: {
+const userSchema = Schema({
+    name:{
         type: String,
-        required: [true, "El título es obligatorio"],
-        maxLength: [100, "El título no puede exceder 100 caracteres"]
+        required: [true, "Name is required"],
+        maxLength: [25, "Name cannot exceed 25 characters"]
     },
-    categoria: {
-        type: Schema.Types.ObjectId,
-        ref: "Categoria",
-        required: [true, "La categoría es obligatoria"]
-    },
-    contenido: {
+    surname:{
         type: String,
-        required: [true, "El contenido de la publicación es obligatorio"]
+        required: [true, "Surname is required"],
+        maxLength: [25, "Surname cannot exceed 25 characters"]
     },
-    usuario: {
-        type: Schema.Types.ObjectId,
-        ref: "Usuario",
-        required: [true, "El usuario es obligatorio"]
+    username:{
+        type: String,
+        required: true,
+        unique:true
     },
-    fechaCreacion: {
-        type: Date,
-        default: Date.now
+    email:{
+        type: String,
+        required: [true, "Email is required"],
+        unique: true
     },
-    estado: {
-        type: Boolean,
-        default: true
+    password:{
+        type: String,
+        required: [true, "Password is required"]
+    },
+    profilePicture:{
+        type: String
+    },
+    phone:{
+        type: String,
+        minLength: 8,
+        maxLength: 8,
+        required: true
+    },
+    role:{
+        type: String,
+        required: true,
+        enum: ["ADMIN_ROLE", "USER_ROLE"],
+        default: "USER_ROLE"
     }
-}, {
+},
+{
     versionKey: false,
-    timestamps: true
-});
+    timeStamps: true
+})
 
-publicacionSchema.methods.toJSON = function() {
-    const { _id, ...publicacion } = this.toObject();
-    publicacion.uid = _id;
-    return publicacion;
-};
+userSchema.methods.toJSON = function(){
+    const {password, _id, ...usuario} = this.toObject()
+    usuario.uid = _id
+    return usuario
+}
 
-export default model("Publicacion", publicacionSchema);
+export default model("User", userSchema)
