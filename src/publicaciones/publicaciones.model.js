@@ -30,7 +30,8 @@ const publicationSchema = new Schema({
         type: Boolean,
         default: true
     }
-}, {
+}, 
+{
     versionKey: false,
     timestamps: true
 });
@@ -41,4 +42,4 @@ publicationSchema.methods.toJSON = function() {
     return publication;
 };
 
-export default model("Publication", publicationSchema);
+export default model("Publication", publicationSchema)
