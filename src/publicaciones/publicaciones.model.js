@@ -34,12 +34,12 @@ const publicationSchema = new Schema({
 {
     versionKey: false,
     timestamps: true
-});
+})
 
 publicationSchema.methods.toJSON = function() {
     const { _id, ...publication } = this.toObject();
     publication.uid = _id;
     return publication;
-};
+}
 
 export default model("Publication", publicationSchema)

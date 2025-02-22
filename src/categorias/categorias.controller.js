@@ -44,14 +44,6 @@ export const createCategory = async (req, res) => {
             })
         }
 
-        const categoryExists = await Category.findOne({ name });
-        if (categoryExists) {
-            return res.status(400).json({
-                success: false,
-                message: "La categoría ya existe"
-            })
-        }
-
         const category = new Category({
             name,
             description 

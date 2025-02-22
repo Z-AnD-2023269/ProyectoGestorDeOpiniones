@@ -10,8 +10,8 @@ import userRoutes from "../src/user/user.routes.js";
 import { defaultUserAdmin } from "../src/user/user.controller.js";
 import categoryRoutes from "../src/categorias/categorias.routes.js";
 import { defaultCategory } from "../src/categorias/categorias.controller.js";
-/*import postRoutes from "../src/publicaciones/publicaciones.routes.js";
-import commentRoutes from "../src/comentarios/comentarios.routes.js";*/
+import postRoutes from "../src/publicaciones/publicaciones.routes.js";
+/*import commentRoutes from "../src/comentarios/comentarios.routes.js";*/
 import apiLimiter from "../src/middlewares/rate-limit-validator.js"
 import { swaggerDocs, swaggerUi } from "./swagger.js";
 
@@ -42,8 +42,8 @@ const routes = (app) => {
     app.use("/gestionDeOpiniones/v1/auth", authRoutes);
     app.use("/gestionDeOpiniones/v1/user", userRoutes);
     app.use("/gestionDeOpiniones/v1/category", categoryRoutes);
-    /*app.use("/gestionDeOpiniones/v1/post", postRoutes);
-    app.use("/gestionDeOpiniones/v1/comment", commentRoutes);*/
+    app.use("/gestionDeOpiniones/v1/post", postRoutes);
+    /*app.use("/gestionDeOpiniones/v1/comment", commentRoutes);*/
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 }
 
